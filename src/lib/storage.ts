@@ -27,7 +27,7 @@ export const dataTasks: Task[] = [
       "Create initial task model structure for board, column, and task entities.",
     status: {
       id: 2,
-      statusName: "todo",
+      statusName: "to do",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -51,7 +51,7 @@ export const dataTasks: Task[] = [
       "Implement create, read, update, delete tasks with local state management.",
     status: {
       id: 2,
-      statusName: "todo",
+      statusName: "to do",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -61,6 +61,16 @@ export const dataTasks: Task[] = [
     title: "Integrate local storage persistence",
     description:
       "Store and retrieve task data from browser localStorage for offline use.",
+    status: {
+      id: 4,
+      statusName: "done",
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 6,
+    title: "Implement typescript in project react",
     status: {
       id: 4,
       statusName: "done",
