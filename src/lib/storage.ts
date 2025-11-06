@@ -1,11 +1,11 @@
-interface Task {
+type Task = {
   id: number;
   title: string;
   description?: string;
   status: { id: number; statusName: string };
-  createdAt: Date;
-  updatedAt: Date;
-}
+  createdAt?: Date;
+  updatedAt?: Date;
+};
 
 export const dataTasks: Task[] = [
   {
