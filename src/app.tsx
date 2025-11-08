@@ -5,6 +5,7 @@ import { ListTask } from "./components/list-task";
 import "./index.css";
 import { SearchForm } from "./components/search-form";
 import "@fontsource/poppins";
+import { DayJS } from "./components/day-js";
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
             <SearchForm searchIcon={searchIcon} />
             <ListTask />
           </div>
+        </section>
+
+        <section className="mt-10 ">
+          <DayJS />
         </section>
 
         <Footer />
