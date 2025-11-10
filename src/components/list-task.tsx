@@ -1,6 +1,5 @@
-import dayjs from "dayjs";
 import { dataTasks } from "../lib/storage";
-import { Task } from "./task";
+import { TaskItem } from "./task";
 
 function getStatusBadge(status: string) {
   switch (status.toLowerCase()) {
@@ -19,26 +18,11 @@ export function ListTask() {
   return (
     <ul>
       {dataTasks.map((task) => {
-        const {
-          id,
-          title,
-          status: { statusName },
-          description,
-          createdAt,
-        } = task;
-
-        const dateOfCreatedAt = dayjs(createdAt).format("MMMM D, YYYY");
-        // const now = dayjs();
-        // console.log(dateOfCreatedAt.format("MMMM D, YYYY"));
-
         return (
-          <Task
-            key={id}
-            title={title}
-            statusName={statusName}
-            className={getStatusBadge(statusName)}
-            description={description ?? ""}
-            createdAt={dateOfCreatedAt}
+          <TaskItem
+            key={task.id}
+            task={task}
+            className={getStatusBadge(task.status.name)}
           />
         );
       })}
