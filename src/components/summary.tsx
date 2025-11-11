@@ -6,9 +6,7 @@ import { CardSummary } from "./card-summary";
 
 function countIsDone() {
   const tasks = dataTasks;
-  const updatedTasks = tasks.filter(
-    (task) => task.status.statusName === "done"
-  );
+  const updatedTasks = tasks.filter((task) => task.status.name === "done");
   const count = updatedTasks.length;
   return count;
 }

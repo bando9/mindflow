@@ -1,8 +1,8 @@
-type Task = {
+export type Task = {
   id: number;
   title: string;
   description?: string;
-  status: { id: number; statusName: string };
+  status: { id: number; name: string };
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -15,7 +15,7 @@ export const dataTasks: Task[] = [
       "Initialize React with Vite + SWC, configure Tailwind CSS and TypeScript.",
     status: {
       id: 3,
-      statusName: "backlog",
+      name: "backlog",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -27,7 +27,7 @@ export const dataTasks: Task[] = [
       "Create initial task model structure for board, column, and task entities.",
     status: {
       id: 2,
-      statusName: "to do",
+      name: "to do",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -39,7 +39,7 @@ export const dataTasks: Task[] = [
       "Build draggable task cards using @dnd-kit and Tailwind layout.",
     status: {
       id: 1,
-      statusName: "in-progress",
+      name: "in-progress",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -51,7 +51,7 @@ export const dataTasks: Task[] = [
       "Implement create, read, update, delete tasks with local state management.",
     status: {
       id: 2,
-      statusName: "to do",
+      name: "to do",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -63,7 +63,7 @@ export const dataTasks: Task[] = [
       "Store and retrieve task data from browser localStorage for offline use.",
     status: {
       id: 4,
-      statusName: "done",
+      name: "done",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -73,7 +73,7 @@ export const dataTasks: Task[] = [
     title: "Implement typescript in project react",
     status: {
       id: 4,
-      statusName: "done",
+      name: "done",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
