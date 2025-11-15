@@ -5,7 +5,7 @@ export function DeleteDialog() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <RiDeleteBin6Fill className="text-red-400 w-5 hover:cursor-pointer" />
+        <RiDeleteBin6Fill className="text-red-400 w-4 hover:cursor-pointer" />
       </AlertDialog.Trigger>
 
       <AlertDialog.Content maxWidth="500px">
