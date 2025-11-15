@@ -1,8 +1,10 @@
-import checkIcon from ".././assets/check-circle.svg";
-import updatedIcon from ".././assets/refresh-ccw.svg";
-import createdIcon from ".././assets/file-plus.svg";
 import { dataTasks } from "../lib/storage";
 import { CardSummary } from "./card-summary";
+import {
+  RiFileAddLine,
+  RiFileCheckLine,
+  RiFileEditLine,
+} from "@remixicon/react";
 
 function countIsDone() {
   const tasks = dataTasks;
@@ -18,21 +20,20 @@ export function Summary() {
     <div className="grid grid-cols-2 gap-5 mb-10">
       <CardSummary
         count={countIsDone()}
-        imageSrc={checkIcon}
+        icon={<RiFileCheckLine />}
         colorBackgroundIcon="bg-green-100"
         statusSummary="completed"
       />
-
       <CardSummary
         count={32}
-        imageSrc={updatedIcon}
+        icon={<RiFileEditLine />}
         colorBackgroundIcon="bg-slate-200"
         statusSummary="updated"
       />
 
       <CardSummary
         count={countTasks}
-        imageSrc={createdIcon}
+        icon={<RiFileAddLine />}
         colorBackgroundIcon="bg-slate-200"
         statusSummary="created"
       />

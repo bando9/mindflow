@@ -1,12 +1,12 @@
 type CardSummary = {
-  imageSrc: string;
+  icon?: React.ReactNode;
   count: number;
   colorBackgroundIcon: string;
   statusSummary: string;
 };
 
 export function CardSummary({
-  imageSrc,
+  icon,
   count,
   colorBackgroundIcon,
   statusSummary,
@@ -16,7 +16,7 @@ export function CardSummary({
       <div
         className={`w-10 h-10 flex items-center justify-center rounded-lg ${colorBackgroundIcon}`}
       >
-        <img src={imageSrc} alt="check icon" className="w-5" />
+        {icon}
       </div>
       <div>
         <h2 className="font-semibold text-slate-700">

@@ -3,6 +3,7 @@ import type { Task } from "../lib/storage";
 import { DeleteDialog } from "./delete-dialog";
 import { RiCheckDoubleFill } from "@remixicon/react";
 import { TaskDetail } from "./task-detail";
+import { Badge } from "@/components/ui/badge";
 
 interface TaskItemProps {
   task: Task;
@@ -39,9 +40,9 @@ export function TaskItem({ task }: TaskItemProps) {
             Created {formattedCreatedAt}
           </p>
 
-          {/* <Badge color={badgeStatus} variant="soft" className="capitalize mt-5">
+          <Badge variant={task.status.name} className="capitalize">
             {task.status.name}
-          </Badge> */}
+          </Badge>
         </div>
         <div className="flex flex-col items-end justify-between  gap-5 ">
           <TaskDetail />

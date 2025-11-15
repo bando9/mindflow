@@ -10,7 +10,6 @@ function App() {
         <section className="mt-5 w-3/4 mx-auto">
           <Summary />
         </section>
-
         <section className=" mt-5 flex justify-center">
           <div>
             <h1 className="text-2xl font-semibold mb-4">Today</h1>
