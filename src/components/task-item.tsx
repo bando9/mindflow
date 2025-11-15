@@ -30,7 +30,7 @@ export function TaskItem({ task, handleDelete }: TaskItemProps) {
           </Badge>
         </div>
         <div className="flex flex-col items-end justify-between  gap-5 ">
-          <TaskDetail />
+          <TaskDetail taskId={task.id} />
 
           <div className="flex gap-5 ">
             <RiCheckDoubleFill className="text-green-500 w-5 hover:cursor-pointer" />

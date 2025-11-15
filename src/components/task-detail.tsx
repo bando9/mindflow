@@ -9,20 +9,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { initialDataTasks } from "@/lib/storage";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import dayjs from "dayjs";
+import { initialDataTasks } from "@/lib/storage";
 
-export function TaskDetail() {
-  const taskId = 2;
-  const findTask = initialDataTasks.find((task) => task.id === taskId);
+interface TaskDetailProps {
+  taskId: number;
+}
 
-  if (!findTask) {
-    return;
-  }
-  const formattedCreatedAt = dayjs(findTask.createdAt).format("MMMM D, YYYY");
-  const formattedUpdatedAt = dayjs(findTask.updatedAt).format("MMMM D, YYYY");
+export function TaskDetail({ taskId }: TaskDetailProps) {
+  const task = initialDataTasks.find((task) => task.id === taskId);
+  if (!task) return;
+
+  const formattedCreatedAt = dayjs(task.createdAt).format("MMMM D, YYYY");
+  const formattedUpdatedAt = dayjs(task.updatedAt).format("MMMM D, YYYY");
 
   return (
     <Dialog>
@@ -32,11 +33,11 @@ export function TaskDetail() {
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="my-3">
           <DialogTitle className="capitalize flex items-center justify-between mb-2">
-            {findTask.title}
-            <Badge status={findTask.status.name}>{findTask.status.name}</Badge>
+            {task.title}
+            <Badge status={task.status.name}>{task.status.name}</Badge>
           </DialogTitle>
           <DialogDescription className="flex flex-col">
-            {findTask?.description}
+            {task?.description}
             <span className="text-slate-600 text-xs italic mt-2 ">
               Last updated {formattedUpdatedAt}
             </span>
@@ -50,7 +51,6 @@ export function TaskDetail() {
         <DialogFooter className="sm:justify-start md:justify-end">
           <DialogClose asChild>
             <Button variant="outline" className="hover:cursor-pointer">
-              {" "}
               Close
             </Button>
           </DialogClose>
