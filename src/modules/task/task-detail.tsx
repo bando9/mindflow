@@ -8,11 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../src/components/ui/dialog";
-import { Button } from "../../src/components/ui/button";
-import { Badge } from "../../src/components/ui/badge";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import dayjs from "dayjs";
 import { initialDataTasks } from "@/lib/storage";
+import { Badge } from "@/components/ui/badge";
 
 interface TaskDetailProps {
   taskId: number;
