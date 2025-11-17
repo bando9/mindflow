@@ -1,7 +1,7 @@
-import { Summary } from "../module/summary/summary";
 import { Footer } from "./components/footer";
-import { TaskList } from "../module/task/task-list";
 import { SearchForm } from "./components/search-form";
+import { Summary } from "./modules/summary/summary";
+import { TaskList } from "./modules/task/task-list";
 
 function App() {
   return (
