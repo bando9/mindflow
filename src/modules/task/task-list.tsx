@@ -24,11 +24,11 @@ export function TaskList() {
     const newTask = {
       id: newId,
       title,
-      isDone,
+      status: { id: 3, name: "backlog" },
     };
 
-    const updateTasks = [...tasks, newTask];
-    console.log(title);
+    console.log(newTask);
+    event.currentTarget.reset();
   }
 
   return (
