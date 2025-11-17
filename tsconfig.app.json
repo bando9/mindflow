@@ -30,5 +30,12 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "module/task/task-detail.tsx",
+    "module/task/task-item.tsx",
+    "module/task/task-list.tsx",
+    "module/summary/card-summary.tsx",
+    "module/summary/summary.tsx"
+  ]
 }
