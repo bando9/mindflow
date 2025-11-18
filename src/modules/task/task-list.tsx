@@ -24,7 +24,10 @@ export function TaskList() {
     const newTask: Task = {
       id: newId,
       title: formData.get("title")?.toString().trim() || "",
-      status: { id: 2, name: "done" },
+      status: { id: 2, name: "backlog" },
+      description: "-".trim(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     const result = TaskSchema.safeParse(newTask);
@@ -37,6 +40,10 @@ export function TaskList() {
     setTasks(updateTasks);
 
     event.currentTarget.reset();
+  }
+
+  function handleStatusIsDone(id: number) {
+    console.log("Checklist status done", id);
   }
 
   return (
@@ -55,6 +62,7 @@ export function TaskList() {
               key={task.id}
               task={task}
               handleDelete={() => handleDelete(task.id)}
+              handleStatusDone={() => handleStatusIsDone(task.id)}
             />
           );
         })}

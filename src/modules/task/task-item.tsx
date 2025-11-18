@@ -11,9 +11,14 @@ import { Badge } from "@/components/ui/badge";
 interface TaskItemProps {
   task: Task;
   handleDelete: () => void;
+  handleStatusDone: () => void;
 }
 
-export function TaskItem({ task, handleDelete }: TaskItemProps) {
+export function TaskItem({
+  task,
+  handleDelete,
+  handleStatusDone,
+}: TaskItemProps) {
   const formattedCreatedAt = dayjs(task.createdAt).format("MMMM D, YYYY");
 
   const statusIsDone = task.status.name === "done";
@@ -40,10 +45,16 @@ export function TaskItem({ task, handleDelete }: TaskItemProps) {
 
           <div className="flex gap-5 items-center">
             {!statusIsDone && (
-              <RiCheckboxCircleLine className="text-slate-700 cursor-pointer" />
+              <RiCheckboxCircleLine
+                className="text-slate-700 cursor-pointer"
+                onClick={handleStatusDone}
+              />
             )}
             {statusIsDone && (
-              <RiCheckboxCircleFill className="text-green-700 cursor-pointer" />
+              <RiCheckboxCircleFill
+                className="text-green-700 cursor-pointer"
+                onClick={handleStatusDone}
+              />
             )}
 
             <RiDeleteBin6Fill
