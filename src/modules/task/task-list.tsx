@@ -42,8 +42,20 @@ export function TaskList() {
     event.currentTarget.reset();
   }
 
-  function handleStatusIsDone(id: number) {
+  function handleStatusIsDone(id: number, task: Task) {
     console.log("Checklist status done", id);
+    // 1. cukup ubah statusnya saja, tanpa form data.
+    // 2. pake form. ambil semua. ubah statusnya.
+
+    const statusIsDone = {
+      ...task,
+      status: {
+        id: 4,
+        name: "done",
+      },
+    };
+
+    console.log(statusIsDone);
   }
 
   return (
@@ -62,7 +74,7 @@ export function TaskList() {
               key={task.id}
               task={task}
               handleDelete={() => handleDelete(task.id)}
-              handleStatusDone={() => handleStatusIsDone(task.id)}
+              handleStatusIsDone={() => handleStatusIsDone(task.id, task)}
             />
           );
         })}

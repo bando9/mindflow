@@ -11,17 +11,21 @@ import { Badge } from "@/components/ui/badge";
 interface TaskItemProps {
   task: Task;
   handleDelete: () => void;
-  handleStatusDone: () => void;
+  handleStatusIsDone: () => void;
 }
 
 export function TaskItem({
   task,
   handleDelete,
-  handleStatusDone,
+  handleStatusIsDone,
 }: TaskItemProps) {
   const formattedCreatedAt = dayjs(task.createdAt).format("MMMM D, YYYY");
 
   const statusIsDone = task.status.name === "done";
+
+  function handleStatusIsTodo(id: number) {
+    console.log("Checklist status todo", id);
+  }
 
   return (
     <li className="mb-3 w-2xl  border-2 border-blue-300 rounded-lg p-2">
@@ -44,16 +48,15 @@ export function TaskItem({
           <TaskDetail taskId={task.id} />
 
           <div className="flex gap-5 items-center">
-            {!statusIsDone && (
-              <RiCheckboxCircleLine
-                className="text-slate-700 cursor-pointer"
-                onClick={handleStatusDone}
-              />
-            )}
-            {statusIsDone && (
+            {statusIsDone ? (
               <RiCheckboxCircleFill
                 className="text-green-700 cursor-pointer"
-                onClick={handleStatusDone}
+                onClick={() => handleStatusIsTodo(task.id)}
+              />
+            ) : (
+              <RiCheckboxCircleLine
+                className="text-slate-700 cursor-pointer"
+                onClick={handleStatusIsDone}
               />
             )}
 
