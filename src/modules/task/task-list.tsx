@@ -43,8 +43,6 @@ export function TaskList() {
   }
 
   function handleStatusIsDone(id: number) {
-    console.log("Checklist status done", id);
-
     setTasks((tasks) =>
       tasks.map((task) => {
         if (task.id === id) {
@@ -55,8 +53,6 @@ export function TaskList() {
               name: "done",
             },
           };
-          console.log(updateTask);
-          console.log("update berhasil");
           return updateTask;
         } else {
           return task;
