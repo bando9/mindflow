@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { TaskSchema, type Task, type Tasks } from "@/modules/task/schema";
+import { CalendarForm } from "./calender-form";
 
 export function TaskList() {
   const [tasks, setTasks] = useState(initialDataTasks);
@@ -18,9 +19,6 @@ export function TaskList() {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-
-    const time = formData.get("time-picker");
-    console.log(time);
 
     const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
 
@@ -90,19 +88,7 @@ export function TaskList() {
       <form method="post" className="space-y-2" onSubmit={handleCreateTask}>
         <Label htmlFor="title">Title Task</Label>
         <Input type="text" name="title" id="title" required />
-
-        <div className="w-36">
-          <Label htmlFor="time-picker" className="px-1">
-            Time
-          </Label>
-          <Input
-            type="time"
-            id="time-picker"
-            step="1"
-            defaultValue="10:30:00"
-            className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-          />
-        </div>
+        <CalendarForm />
 
         <Button>Create Task</Button>
       </form>
