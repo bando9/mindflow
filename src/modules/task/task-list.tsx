@@ -5,9 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { TaskSchema, type Task, type Tasks } from "@/modules/task/schema";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function TaskList() {
   const [tasks, setTasks] = useState(initialDataTasks);
+  const [status, setStatus] = useState("");
 
   function handleDelete(id: number) {
     const updatedTasks = tasks.filter((task) => task.id !== id);
@@ -19,16 +28,18 @@ export function TaskList() {
 
     const formData = new FormData(event.currentTarget);
 
-    const time = formData.get("time-picker");
-    console.log(time);
-
     const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
+
+    const statusValue: FormDataEntryValue | null = formData.get("status");
+
+    const taskStatus: "backlog" | "done" | "todo" | "in-progress" =
+      statusValue as "backlog" | "done" | "todo" | "in-progress";
 
     const newTask: Task = {
       id: newId,
       title: formData.get("title")?.toString().trim() || "",
-      status: { id: 2, name: "todo" },
-      description: "-".trim(),
+      description: formData.get("description")?.toString().trim() || "",
+      status: { id: 1, name: taskStatus },
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -43,6 +54,7 @@ export function TaskList() {
     setTasks(updateTasks);
 
     event.currentTarget.reset();
+    setStatus("");
   }
 
   function handleStatusIsDone(id: number) {
@@ -91,18 +103,24 @@ export function TaskList() {
         <Label htmlFor="title">Title Task</Label>
         <Input type="text" name="title" id="title" required />
 
-        <div className="w-36">
-          <Label htmlFor="time-picker" className="px-1">
-            Time
-          </Label>
-          <Input
-            type="time"
-            id="time-picker"
-            step="1"
-            defaultValue="10:30:00"
-            className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-          />
-        </div>
+        <Label htmlFor="description">Description Task</Label>
+        <Input type="text" name="description" id="description" />
+
+        <Select onValueChange={setStatus} value={status}>
+          <SelectTrigger className="w-36">
+            <SelectValue placeholder="Select Status" />
+          </SelectTrigger>
+          <SelectContent id="status">
+            <SelectGroup>
+              {/* <SelectLabel>Status</SelectLabel> */}
+              <SelectItem value="todo">Todo</SelectItem>
+              <SelectItem value="in-progress">In-Progress</SelectItem>
+              <SelectItem value="backlog">Backlog</SelectItem>
+              <SelectItem value="done">Done</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <input type="hidden" name="status" value={status} />
 
         <Button>Create Task</Button>
       </form>
