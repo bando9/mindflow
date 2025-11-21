@@ -54,6 +54,7 @@ export function TaskList() {
     setTasks(updateTasks);
 
     event.currentTarget.reset();
+    setStatus("");
   }
 
   function handleStatusIsDone(id: number) {
@@ -103,9 +104,9 @@ export function TaskList() {
         <Input type="text" name="title" id="title" required />
 
         <Label htmlFor="description">Description Task</Label>
-        <Input type="text" name="description" id="description" required />
+        <Input type="text" name="description" id="description" />
 
-        <Select onValueChange={setStatus}>
+        <Select onValueChange={setStatus} value={status}>
           <SelectTrigger className="w-36">
             <SelectValue placeholder="Select Status" />
           </SelectTrigger>
