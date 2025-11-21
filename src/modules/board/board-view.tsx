@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer";
+import { initialDataTasks } from "@/lib/storage";
 import { NavBar } from "@/modules/navbar";
 
 export function BoardView() {
@@ -20,24 +21,18 @@ export function BoardView() {
                         10
                       </span>
                     </h1>
-                    <CardDummy />
-
-                    <CardDummy />
+                    <TaskListBacklog />
                   </div>
 
                   <div className="min-w-72 bg-slate-200 min-h-screen rounded-md p-3">
                     <h1 className="text-center mb-4 pb-2 text-slate-900 font-semibold border-b border-slate-400">
-                      To Do
+                      Todo
                       <span className="ms-1.5 inline-flex items-center rounded-md bg-slate-600/20 px-2 py-1 text-xs font-medium text-slate-800">
                         10
                       </span>
                     </h1>
 
-                    <CardDummy />
-
-                    <CardDummy />
-
-                    <CardDummy />
+                    <TaskListTodo />
                   </div>
 
                   <div className="min-w-72 bg-slate-200 min-h-screen rounded-md p-3">
@@ -47,11 +42,7 @@ export function BoardView() {
                         10
                       </span>
                     </h1>
-                    <CardDummy />
-
-                    <CardDummy />
-
-                    <CardDummy />
+                    <TaskListInProgress />
                   </div>
 
                   <div className="min-w-72 bg-slate-200 min-h-screen rounded-md p-3">
@@ -62,9 +53,7 @@ export function BoardView() {
                       </span>
                     </h1>
 
-                    <CardDummy />
-
-                    <CardDummy />
+                    <TaskListDone />
                   </div>
                 </div>
               </section>
@@ -78,15 +67,86 @@ export function BoardView() {
   );
 }
 
-function CardDummy() {
+function TaskListBacklog() {
   return (
-    <div className="w-full p-3 bg-slate-50 rounded-md mb-5 cursor-pointer border-2 border-slate-50 hover:border-blue-400 duration-200 transition-all">
-      <h2 className="mb-3">
-        Setup Mindfloww project dkawjndwadnk awdkawn dwaknd awdlk
-      </h2>
-      <p className="inline-flex items-center rounded-md bg-slate-950/10 px-2 py-1 text-xs font-medium text-slate-800 inset-ring inset-ring-slate-950/20">
-        5
-      </p>
-    </div>
+    <ul>
+      {initialDataTasks
+        .filter((task) => {
+          return task.status.name === "backlog";
+        })
+        .map((task) => {
+          return (
+            <li className="w-full p-3 bg-slate-50 rounded-md mb-5 cursor-pointer border-2 border-slate-50 hover:border-blue-400 duration-200 transition-all">
+              <h2 className="mb-3">{task.title}</h2>
+              <p className="inline-flex items-center rounded-md bg-slate-950/10 px-2 py-1 text-xs font-medium text-slate-800 inset-ring inset-ring-slate-950/20">
+                5
+              </p>
+            </li>
+          );
+        })}
+    </ul>
+  );
+}
+
+function TaskListTodo() {
+  return (
+    <ul>
+      {initialDataTasks
+        .filter((task) => {
+          return task.status.name === "todo";
+        })
+        .map((task) => {
+          return (
+            <li className="w-full p-3 bg-slate-50 rounded-md mb-5 cursor-pointer border-2 border-slate-50 hover:border-blue-400 duration-200 transition-all">
+              <h2 className="mb-3">{task.title}</h2>
+              <p className="inline-flex items-center rounded-md bg-slate-950/10 px-2 py-1 text-xs font-medium text-slate-800 inset-ring inset-ring-slate-950/20">
+                5
+              </p>
+            </li>
+          );
+        })}
+    </ul>
+  );
+}
+
+function TaskListDone() {
+  return (
+    <ul>
+      {initialDataTasks
+        .filter((task) => {
+          return task.status.name === "done";
+        })
+        .map((task) => {
+          return (
+            <li className="w-full p-3 bg-slate-50 rounded-md mb-5 cursor-pointer border-2 border-slate-50 hover:border-blue-400 duration-200 transition-all">
+              <h2 className="mb-3">{task.title}</h2>
+              <p className="inline-flex items-center rounded-md bg-slate-950/10 px-2 py-1 text-xs font-medium text-slate-800 inset-ring inset-ring-slate-950/20">
+                5
+              </p>
+            </li>
+          );
+        })}
+    </ul>
+  );
+}
+
+function TaskListInProgress() {
+  return (
+    <ul>
+      {initialDataTasks
+        .filter((task) => {
+          return task.status.name === "in-progress";
+        })
+        .map((task) => {
+          return (
+            <li className="w-full p-3 bg-slate-50 rounded-md mb-5 cursor-pointer border-2 border-slate-50 hover:border-blue-400 duration-200 transition-all">
+              <h2 className="mb-3">{task.title}</h2>
+              <p className="inline-flex items-center rounded-md bg-slate-950/10 px-2 py-1 text-xs font-medium text-slate-800 inset-ring inset-ring-slate-950/20">
+                5
+              </p>
+            </li>
+          );
+        })}
+    </ul>
   );
 }
