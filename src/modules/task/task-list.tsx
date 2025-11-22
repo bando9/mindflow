@@ -100,10 +100,10 @@ export function TaskList() {
   return (
     <section className="space-y-8 w-2xl">
       <form method="post" className="space-y-2" onSubmit={handleCreateTask}>
-        <Label htmlFor="title">Title Task</Label>
+        <Label htmlFor="title">Title</Label>
         <Input type="text" name="title" id="title" required />
 
-        <Label htmlFor="description">Description Task</Label>
+        <Label htmlFor="description">Description</Label>
         <Input type="text" name="description" id="description" />
 
         <Select onValueChange={setStatus} value={status}>
@@ -113,9 +113,9 @@ export function TaskList() {
           <SelectContent id="status">
             <SelectGroup>
               {/* <SelectLabel>Status</SelectLabel> */}
-              <SelectItem value="todo">Todo</SelectItem>
-              <SelectItem value="in-progress">In-Progress</SelectItem>
               <SelectItem value="backlog">Backlog</SelectItem>
+              <SelectItem value="todo">Todo</SelectItem>
+              <SelectItem value="in-progress">In Progress</SelectItem>
               <SelectItem value="done">Done</SelectItem>
             </SelectGroup>
           </SelectContent>

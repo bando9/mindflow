@@ -14,7 +14,7 @@ function countIsDone() {
 }
 
 export function Summary() {
-  const countTasks = initialDataTasks.length;
+  const countTasks = initialDataTasks.length; // dummy
 
   return (
     <div className="grid grid-cols-2 gap-5 mb-10">
