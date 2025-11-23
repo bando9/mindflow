@@ -24,18 +24,7 @@ export function TaskItem({
 
   return (
     <li className="mb-3 w-full  border-2 border-blue-300 rounded-lg p-2 flex items-center justify-between">
-      <h2 className="text-slate-800 text-base font-semibold capitalize w-1/2">
-        {task.title}
-      </h2>
-
-      <Badge status={task.status.name} className="capitalize ">
-        {task.status.name}
-      </Badge>
-
-      <div className="flex gap-3">
-        <TaskDetail task={task} />
-
-        {/* <div className="flex gap-5 items-center"> */}
+      <div className="w-1/2 flex items-center gap-2">
         {statusIsDone ? (
           <RiCheckboxCircleFill
             className="text-green-700 cursor-pointer"
@@ -47,6 +36,18 @@ export function TaskItem({
             onClick={handleStatusIsDone}
           />
         )}
+
+        <h2 className="text-slate-800 text-base font-semibold capitalize ">
+          {task.title}
+        </h2>
+      </div>
+
+      <Badge status={task.status.name} className="capitalize ">
+        {task.status.name}
+      </Badge>
+
+      <div className="flex gap-3">
+        <TaskDetail task={task} />
 
         <RiDeleteBin6Fill
           className=" text-red-700 cursor-pointer"
