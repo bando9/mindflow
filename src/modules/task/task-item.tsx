@@ -48,7 +48,7 @@ export function TaskItem({
       </Badge>
 
       <div className="flex gap-3">
-        <Link to="/task">
+        <Link to="/tasks/1">
           <RiInformationLine />
         </Link>
         <RiDeleteBin6Fill
