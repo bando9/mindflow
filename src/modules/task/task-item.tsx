@@ -1,11 +1,12 @@
+import { RiInformationLine } from "@remixicon/react";
 import type { Task } from "@/modules/task/schema";
 import {
   RiCheckboxCircleLine,
   RiCheckboxCircleFill,
   RiDeleteBin6Fill,
 } from "@remixicon/react";
-import { TaskDetail } from "./task-detail";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router";
 
 interface TaskItemProps {
   task: Task;
@@ -47,8 +48,9 @@ export function TaskItem({
       </Badge>
 
       <div className="flex gap-3">
-        <TaskDetail task={task} />
-
+        <Link to="/task">
+          <RiInformationLine />
+        </Link>
         <RiDeleteBin6Fill
           className=" text-red-700 cursor-pointer"
           onClick={handleDelete}
