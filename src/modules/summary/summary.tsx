@@ -21,7 +21,7 @@ export function Summary() {
   return (
     <>
       <main className="w-full min-h-screen p-10 overflow-hidden transition-all duration-300 mx-auto">
-        <section className="mt-5 w-3/4 mx-auto">
+        <section className="w-3/4 mx-auto">
           <NavBar />
         </section>
 
