@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { initialDataTasks } from "@/lib/storage";
-import { TaskItem } from "./task-item";
+import { dataStatuses, initialDataTasks } from "@/lib/storage";
+import { TaskItem } from "@/modules/task/task-item";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -13,10 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import z from "zod";
 
 export function TaskList() {
   const [tasks, setTasks] = useState(initialDataTasks);
-  const [status, setStatus] = useState("");
 
   function handleDelete(id: number) {
     const updatedTasks = tasks.filter((task) => task.id !== id);
@@ -24,77 +24,69 @@ export function TaskList() {
   }
 
   function handleCreateTask(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+      const formData = new FormData(event.currentTarget);
 
-    const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
+      const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
 
-    const statusValue: FormDataEntryValue | null = formData.get("status");
+      const statusSlug = formData.get("status-slug") as
+        | "backlog"
+        | "todo"
+        | "in-progress"
+        | "done";
 
-    const taskStatus: "backlog" | "done" | "todo" | "in-progress" =
-      statusValue as "backlog" | "done" | "todo" | "in-progress";
+      const status = dataStatuses.find((status) => status.slug === statusSlug);
+      if (!status) return null;
 
-    const newTask: Task = {
-      id: newId,
-      title: formData.get("title")?.toString().trim() || "",
-      description: formData.get("description")?.toString().trim() || "",
-      status: { id: 1, name: taskStatus },
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+      const newTask: Task = {
+        id: newId,
+        title: formData.get("title")?.toString().trim() || "",
+        description: formData.get("description")?.toString().trim() || "",
+        status: status || dataStatuses[0],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
 
-    const result = TaskSchema.safeParse(newTask);
-    if (!result.success) {
-      alert("New task data invalid");
-      return null;
+      console.log({ status, newTask });
+
+      TaskSchema.parse(newTask);
+
+      const updateTasks: Tasks = [...tasks, newTask];
+      setTasks(updateTasks);
+
+      event.currentTarget.reset();
+    } catch (error: unknown) {
+      if (error instanceof z.ZodError) {
+        const messages = error.issues.map((i) => `${i.message}`).join("\n");
+        alert(messages);
+        console.log(messages);
+        return null;
+      }
     }
-
-    const updateTasks: Tasks = [...tasks, newTask];
-    setTasks(updateTasks);
-
-    event.currentTarget.reset();
-    setStatus("");
   }
 
-  function handleStatusIsDone(id: number) {
-    setTasks((tasks) =>
-      tasks.map((task) => {
-        if (task.id === id) {
-          const statusNameType: string = "done";
-          const updateTask = {
-            ...task,
-            status: {
-              id: 4,
-              name: statusNameType as "done",
-            },
-          };
-          return updateTask;
-        } else {
-          return task;
-        }
-      })
-    );
-  }
+  function handleToggleTaskStatus(id: number) {
+    const foundTask = tasks.find((task) => task.id === id);
+    if (!foundTask) return false;
 
-  function handleStatusIsTodo(id: number) {
-    setTasks((tasks) =>
-      tasks.map((task) => {
-        if (task.id === id) {
-          const statusNameType: string = "todo";
-          const updateTask = {
-            ...task,
-            status: {
-              id: 2,
-              name: statusNameType as "todo",
-            },
-          };
-          return updateTask;
-        } else {
-          return task;
-        }
-      })
-    );
+    const isTaskDone = foundTask.status.slug === "done";
+
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return {
+          ...task,
+          status: isTaskDone
+            ? { id: 1, slug: "todo", name: "Todo" }
+            : { id: 4, slug: "done", name: "Done" },
+        };
+      } else {
+        return task;
+      }
+    });
+
+    setTasks(updatedTasks);
   }
 
   return (
@@ -106,20 +98,22 @@ export function TaskList() {
         <Label htmlFor="description">Description </Label>
         <Input type="text" name="description" id="description" />
 
-        <Select onValueChange={setStatus} value={status}>
+        <Select name="status-slug">
           <SelectTrigger className="w-36">
             <SelectValue placeholder="Select Status" />
           </SelectTrigger>
-          <SelectContent id="status">
+          <SelectContent>
             <SelectGroup>
-              <SelectItem value="backlog">Backlog</SelectItem>
-              <SelectItem value="todo">Todo</SelectItem>
-              <SelectItem value="in-progress">In Progress</SelectItem>
-              <SelectItem value="done">Done</SelectItem>
+              {dataStatuses.map((status) => {
+                return (
+                  <SelectItem key={status.slug} value={status.slug}>
+                    {status.name}
+                  </SelectItem>
+                );
+              })}
             </SelectGroup>
           </SelectContent>
         </Select>
-        <input type="hidden" name="status" value={status} />
 
         <Button>Create Task</Button>
       </form>
@@ -131,8 +125,7 @@ export function TaskList() {
               key={task.id}
               task={task}
               handleDelete={() => handleDelete(task.id)}
-              handleStatusIsDone={() => handleStatusIsDone(task.id)}
-              handleStatusIsTodo={() => handleStatusIsTodo(task.id)}
+              handleToggleTaskStatus={() => handleToggleTaskStatus(task.id)}
             />
           );
         })}

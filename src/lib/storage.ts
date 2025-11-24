@@ -1,5 +1,12 @@
 import type { Tasks } from "@/modules/task/schema";
 
+export const dataStatuses = [
+  { id: 1, slug: "backlog", name: "Backlog" },
+  { id: 2, slug: "todo", name: "Todo" },
+  { id: 3, slug: "in-progress", name: "In Progress" },
+  { id: 4, slug: "done", name: "Done" },
+];
+
 export const initialDataTasks: Tasks = [
   {
     id: 1,
@@ -8,7 +15,8 @@ export const initialDataTasks: Tasks = [
       "Initialize React with Vite + SWC, configure Tailwind CSS and TypeScript.",
     status: {
       id: 3,
-      name: "backlog",
+      slug: "backlog",
+      name: "Backlog",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -20,7 +28,8 @@ export const initialDataTasks: Tasks = [
       "Create initial task model structure for board, column, and task entities.",
     status: {
       id: 2,
-      name: "todo",
+      slug: "todo",
+      name: "Todo",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -31,8 +40,9 @@ export const initialDataTasks: Tasks = [
     description:
       "Build draggable task cards using @dnd-kit and Tailwind layout.",
     status: {
-      id: 1,
-      name: "in-progress",
+      id: 3,
+      slug: "in-progress",
+      name: "In Progress",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -44,7 +54,8 @@ export const initialDataTasks: Tasks = [
       "Implement create, read, update, delete tasks with local state management.",
     status: {
       id: 2,
-      name: "todo",
+      slug: "todo",
+      name: "Todo",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -56,7 +67,8 @@ export const initialDataTasks: Tasks = [
       "Store and retrieve task data from browser localStorage for offline use.",
     status: {
       id: 4,
-      name: "done",
+      slug: "done",
+      name: "Done",
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -66,7 +78,8 @@ export const initialDataTasks: Tasks = [
     title: "Implement typescript in project react",
     status: {
       id: 4,
-      name: "done",
+      slug: "done",
+      name: "Done",
     },
     createdAt: new Date(),
     updatedAt: new Date(),

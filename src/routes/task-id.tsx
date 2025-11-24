@@ -9,6 +9,8 @@ import { initialDataTasks } from "@/lib/storage";
 import { useParams } from "react-router";
 
 export function TaskId() {
+  window.scrollTo(0, 0);
+
   const tasks = initialDataTasks;
 
   const params = useParams();

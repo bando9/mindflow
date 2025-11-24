@@ -18,6 +18,7 @@ const badgeVariants = cva(
         outline:
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
       },
+      // @ts-ignore
       status: {
         backlog:
           "bg-gray-400/10 px-2 py-1 text-gray-700inset-ring inset-ring-gray-400/20",

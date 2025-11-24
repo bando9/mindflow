@@ -65,7 +65,7 @@ function TaskListBacklog() {
     <ul>
       {initialDataTasks
         .filter((task) => {
-          return task.status.name === "backlog";
+          return task.status.slug === "backlog";
         })
         .map((task) => {
           return <TaskBoardPopover key={task.id} task={task} />;
@@ -128,7 +128,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import dayjs from "dayjs";
-import type { Task } from "@/modules/task/schema";
+import type { StatusSlug, Task } from "@/modules/task/schema";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -172,7 +172,10 @@ export function TaskBoardPopover({ task }: TaskDetailProps) {
             <Card className="w-full p-4">
               <CardTitle className="flex justify-between items-center">
                 Details
-                <Badge status={task.status.name} className="capitalize">
+                <Badge
+                  status={task.status.slug as StatusSlug}
+                  className="capitalize"
+                >
                   {task.status.name}
                 </Badge>
               </CardTitle>

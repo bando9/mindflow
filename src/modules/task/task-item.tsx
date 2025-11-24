@@ -1,5 +1,5 @@
 import { RiInformationLine } from "@remixicon/react";
-import type { Task } from "@/modules/task/schema";
+import type { StatusSlug, Task } from "@/modules/task/schema";
 import {
   RiCheckboxCircleLine,
   RiCheckboxCircleFill,
@@ -11,17 +11,15 @@ import { Link } from "react-router";
 interface TaskItemProps {
   task: Task;
   handleDelete: () => void;
-  handleStatusIsDone: () => void;
-  handleStatusIsTodo: () => void;
+  handleToggleTaskStatus: () => void;
 }
 
 export function TaskItem({
   task,
   handleDelete,
-  handleStatusIsDone,
-  handleStatusIsTodo,
+  handleToggleTaskStatus,
 }: TaskItemProps) {
-  const statusIsDone = task.status.name === "done";
+  const statusIsDone = task.status.slug === "done";
 
   return (
     <li className="mb-3 w-full  border-2 border-blue-300 rounded-lg p-2 flex items-center justify-between">
@@ -29,12 +27,12 @@ export function TaskItem({
         {statusIsDone ? (
           <RiCheckboxCircleFill
             className="text-green-700 cursor-pointer"
-            onClick={handleStatusIsTodo}
+            onClick={handleToggleTaskStatus}
           />
         ) : (
           <RiCheckboxCircleLine
             className="text-slate-700 cursor-pointer"
-            onClick={handleStatusIsDone}
+            onClick={handleToggleTaskStatus}
           />
         )}
 
@@ -43,7 +41,7 @@ export function TaskItem({
         </h2>
       </div>
 
-      <Badge status={task.status.name} className="capitalize ">
+      <Badge status={task.status.slug as StatusSlug} className="capitalize ">
         {task.status.name}
       </Badge>
 
