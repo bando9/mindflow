@@ -1,14 +1,10 @@
 import { Footer } from "@/components/footer";
 import { initialDataTasks } from "@/lib/storage";
-import { NavBar } from "@/modules/navbar";
 
 export function BoardView() {
   return (
     <>
       <main className="w-full min-h-screen p-10 overflow-hidden transition-all duration-300 mx-auto ">
-        <section className="w-3/4 mx-auto">
-          <NavBar />
-        </section>
         <section className="mt-14 ">
           <div className="min-h-screen flex flex-col md:flex-row relative w-full">
             <div className="flex-1 pt-7 p-10 bg-slate-100  min-h-screen overflow-hidden transition-all duration-300">

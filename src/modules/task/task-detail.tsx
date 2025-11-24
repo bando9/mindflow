@@ -1,5 +1,4 @@
 import { Footer } from "@/components/footer";
-import { NavBar } from "../navbar";
 import {
   Card,
   CardContent,
@@ -17,10 +16,6 @@ export function TaskDetail() {
   return (
     <>
       <main className="flex flex-col items-center w-full min-h-screen h-screen p-10 transition-all duration-300 mx-auto space-y-5 ">
-        <section className="w-3/4 mx-auto">
-          <NavBar />
-        </section>
-
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle>{task1.title}</CardTitle>
