@@ -1,15 +1,21 @@
+import { dataStatuses } from "@/lib/storage";
 import { z } from "zod";
 
-const statusNameEnum = ["backlog", "done", "todo", "in-progress"] as const;
+export type StatusSlug = "backlog" | "todo" | "in-progress" | "done";
+
+export const statusSlugs = dataStatuses.map((status) => status.slug);
+
+export const StatusSchema = z.object({
+  id: z.number().positive(),
+  slug: z.enum(statusSlugs),
+  name: z.string(),
+});
 
 export const TaskSchema = z.object({
   id: z.number().min(1).positive(),
   title: z.string().min(1).max(100),
   description: z.string().min(1).max(150).optional(),
-  status: z.object({
-    id: z.number().positive(),
-    name: z.enum(statusNameEnum),
-  }),
+  status: StatusSchema,
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });

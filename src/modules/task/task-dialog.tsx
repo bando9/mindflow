@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import dayjs from "dayjs";
 import { Badge } from "@/components/ui/badge";
-import type { Task } from "@/modules/task/schema";
+import type { StatusSlug, Task } from "@/modules/task/schema";
 
 interface TaskDetailProps {
   task: Task;
@@ -33,7 +33,9 @@ export function TaskDialog({ task }: TaskDetailProps) {
         <DialogHeader className="my-3">
           <DialogTitle className="capitalize flex items-center justify-between mb-2">
             {task.title}
-            <Badge status={task.status.name}>{task.status.name}</Badge>
+            <Badge status={task.status.name as StatusSlug}>
+              {task.status.name}
+            </Badge>
           </DialogTitle>
           <DialogDescription className="flex flex-col">
             {task?.description}
