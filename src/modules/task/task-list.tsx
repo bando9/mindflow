@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dataStatuses, initialDataTasks } from "@/lib/storage";
 import { TaskItem } from "./task-item";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,14 @@ import {
 import z from "zod";
 
 export function TaskList() {
-  const [tasks, setTasks] = useState(initialDataTasks);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? (JSON.parse(storedTasks) as Tasks) : initialDataTasks;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function handleDelete(id: number) {
     const updatedTasks = tasks.filter((task) => task.id !== id);
