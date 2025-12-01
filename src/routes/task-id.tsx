@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardAction,
@@ -6,8 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { initialDataTasks } from "@/lib/storage";
-import type { Tasks } from "@/modules/task/schema";
+import type { StatusSlug, Tasks } from "@/modules/task/schema";
 import { RiDeleteBin6Fill, RiHome9Fill } from "@remixicon/react";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 
@@ -59,22 +61,41 @@ export function TaskId() {
   function handleDelete(id: number) {
     const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
+    window.location.href = "/";
   }
+
+  const createdFormatted = dayjs(task.createdAt).format("MMMM D, YYYY");
+  const updatedFormatted = dayjs(task.updatedAt).format("MMMM D, YYYY");
 
   return (
     <>
       <main className="flex flex-col items-center w-full min-h-screen p-10 transition-all duration-300 mx-auto space-y-5 ">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-lg">
           <CardHeader>
             <CardTitle>{task.title}</CardTitle>
-            <CardAction>
+            <CardAction className="flex gap-4">
+              <Badge
+                status={task.status.slug as StatusSlug}
+                className="capitalize "
+              >
+                {task.status.name}
+              </Badge>
               <RiDeleteBin6Fill
                 className=" text-red-700 cursor-pointer"
                 onClick={() => handleDelete(task.id)}
               />
             </CardAction>
           </CardHeader>
-          <CardContent>{task.description} </CardContent>
+          <CardContent className="">
+            <div>
+              <h2 className="text-base font-semibold">Description</h2>
+              {task.description}
+            </div>
+            <div className="italic text-xs flex flex-col mt-5">
+              <p>Updated at {updatedFormatted}</p>
+              <p>Created at {createdFormatted}</p>
+            </div>
+          </CardContent>
         </Card>
       </main>
     </>
