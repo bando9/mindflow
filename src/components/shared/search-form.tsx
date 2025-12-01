@@ -8,7 +8,7 @@ import { Label } from "@radix-ui/react-label";
 
 export function SearchForm() {
   return (
-    <form className="max-w-xs mb-6" method="get">
+    <form className="max-w-lg w-full" method="get">
       <InputGroup>
         <Label className="hidden" htmlFor="q">
           Search
