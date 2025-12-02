@@ -9,10 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { dataStatuses, initialDataTasks } from "@/data/storage";
-import { TaskSchema, type Task, type Tasks } from "@/schema/schema";
-import { useEffect, useState } from "react";
-import z from "zod";
+import { dataStatuses } from "@/data/storage";
 
 import {
   Dialog,
@@ -25,57 +22,11 @@ import {
 } from "@/components/ui/dialog";
 import { RiAddLargeLine } from "@remixicon/react";
 
-export function CreateTask() {
-  const [tasks, setTasks] = useState(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    return storedTasks ? (JSON.parse(storedTasks) as Tasks) : initialDataTasks;
-  });
+type CreateTaskProps = {
+  handleCreateTask: (event: React.FormEvent<HTMLFormElement>) => null | void;
+};
 
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  function handleCreateTask(event: React.FormEvent<HTMLFormElement>) {
-    try {
-      event.preventDefault();
-
-      const formData = new FormData(event.currentTarget);
-
-      const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
-
-      const statusSlug = formData.get("status-slug") as
-        | "backlog"
-        | "todo"
-        | "in-progress"
-        | "done";
-
-      const status = dataStatuses.find((status) => status.slug === statusSlug);
-
-      const newTask: Task = {
-        id: newId,
-        title: formData.get("title")?.toString().trim() || "",
-        description: formData.get("description")?.toString().trim() || "",
-        status: status || dataStatuses[0],
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-
-      TaskSchema.parse(newTask);
-
-      const updateTasks: Tasks = [...tasks, newTask];
-      setTasks(updateTasks);
-
-      event.currentTarget.reset();
-    } catch (error: unknown) {
-      if (error instanceof z.ZodError) {
-        const messages = error.issues.map((i) => `${i.message}`).join("\n");
-        alert(messages);
-        console.log(messages);
-        return null;
-      }
-    }
-  }
-
+export function CreateTask({ handleCreateTask }: CreateTaskProps) {
   return (
     <Dialog>
       <form>
@@ -120,7 +71,9 @@ export function CreateTask() {
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DialogClose>
-              <Button type="submit">Create</Button>
+              <DialogClose asChild>
+                <Button type="submit">Create</Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </DialogContent>

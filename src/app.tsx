@@ -3,8 +3,9 @@ import { SearchForm } from "@/components/shared/search-form";
 import { TaskList } from "@/components/shared/task/task-list";
 import { CreateTask } from "./routes/create-task";
 import { useEffect, useState } from "react";
-import { initialDataTasks } from "@/data/storage";
-import type { Tasks } from "./schema/schema";
+import { dataStatuses, initialDataTasks } from "@/data/storage";
+import { TaskSchema, type Task, type Tasks } from "./schema/schema";
+import z from "zod";
 
 function App() {
   const [tasks, setTasks] = useState(() => {
@@ -41,6 +42,47 @@ function App() {
     setTasks(updatedStatusTask);
   }
 
+  function handleCreateTask(event: React.FormEvent<HTMLFormElement>) {
+    try {
+      event.preventDefault();
+
+      const formData = new FormData(event.currentTarget);
+
+      const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
+
+      const statusSlug = formData.get("status-slug") as
+        | "backlog"
+        | "todo"
+        | "in-progress"
+        | "done";
+
+      const status = dataStatuses.find((status) => status.slug === statusSlug);
+
+      const newTask: Task = {
+        id: newId,
+        title: formData.get("title")?.toString().trim() || "",
+        description: formData.get("description")?.toString().trim() || "",
+        status: status || dataStatuses[0],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      TaskSchema.parse(newTask);
+
+      const updateTasks: Tasks = [...tasks, newTask];
+      setTasks(updateTasks);
+
+      event.currentTarget.reset();
+    } catch (error: unknown) {
+      if (error instanceof z.ZodError) {
+        const messages = error.issues.map((i) => `${i.message}`).join("\n");
+        alert(messages);
+        console.log(messages);
+        return null;
+      }
+    }
+  }
+
   const nowDate = new Date();
   const now = dayjs(nowDate).format("MMMM D, YYYY");
 
@@ -52,7 +94,7 @@ function App() {
       </div>
       <div className="flex justify-between items-center mb-6">
         <SearchForm />
-        <CreateTask />
+        <CreateTask handleCreateTask={handleCreateTask} />
       </div>
 
       <TaskList
