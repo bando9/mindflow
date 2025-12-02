@@ -2,7 +2,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="p-4 mt-64 text-center text-sm text-gray-600 ">
+    <footer className="p-4 text-center text-sm text-gray-600 ">
       &copy; {currentYear}. Mindflow by
       <a
         href="https://bandomega.com"

@@ -3,6 +3,7 @@ import { initialDataTasks } from "@/data/storage";
 import { TaskItem } from "./task-item";
 
 import { type Tasks } from "@/schema/schema";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function TaskList() {
   const [tasks, setTasks] = useState(() => {
@@ -41,18 +42,20 @@ export function TaskList() {
 
   return (
     <section className="space-y-8 w-3xl">
-      <ul>
-        {tasks.map((task) => {
-          return (
-            <TaskItem
-              key={task.id}
-              task={task}
-              handleDelete={() => handleDelete(task.id)}
-              handleToggleTaskStatus={() => handleToggleTaskStatus(task.id)}
-            />
-          );
-        })}
-      </ul>
+      <ScrollArea className="h-80 w-full px-4 ">
+        <ul>
+          {tasks.map((task) => {
+            return (
+              <TaskItem
+                key={task.id}
+                task={task}
+                handleDelete={() => handleDelete(task.id)}
+                handleToggleTaskStatus={() => handleToggleTaskStatus(task.id)}
+              />
+            );
+          })}
+        </ul>
+      </ScrollArea>
     </section>
   );
 }
