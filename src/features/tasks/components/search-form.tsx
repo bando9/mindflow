@@ -3,7 +3,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "../ui/input-group";
+} from "@/components/ui/input-group";
 import { Label } from "@radix-ui/react-label";
 
 interface SearchFormProps {
