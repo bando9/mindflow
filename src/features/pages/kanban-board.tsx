@@ -5,7 +5,7 @@ import {
   useDroppable,
   type DragEndEvent,
 } from "@dnd-kit/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { StatusSlug, Task, Tasks } from "../schema/schema";
 
 type ColumnType = {
@@ -17,7 +17,15 @@ type ColumnType = {
 const columns = dataStatuses;
 
 export function KanbanBoard() {
-  const [tasks, setTasks] = useState<Tasks>(initialDataTasks);
+  // const [tasks, setTasks] = useState<Tasks>(initialDataTasks);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? (JSON.parse(storedTasks) as Tasks) : initialDataTasks;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
